@@ -41,9 +41,25 @@ testthat::test_that("Get the right r-squared for single column matrix inputs", {
 
 ### fancier stuff ----
 
-testthat::test_that("passing data.frames or tibbles doesn't throw an error", {
 
+testthat::test_that("can pass named 'w' and 'x' in list for 'yhat' out-of order and still get the same calculation", {
 
+  x <- cbind(1, as.matrix(f$model[, -1]))
+
+  w <- matrix(s$coefficients[, 1], ncol = 1)
+
+  r2_1 <- calc_rsquared(y = y, yhat = list(w = w, x = x))
+
+  testthat::expect_equal(r2_1, s$r.squared)
+
+  # name only one and you should get a warning
+  testthat::expect_warning(calc_rsquared(y = y, yhat = list(x = x, w)))
+
+  # repeated names of 'x' or 'w' produce a warning
+  testthat::expect_warning(calc_rsquared(y = y, yhat = list(x = x, w = w, x = x)))
+
+  # confirm that naming nothing produces no warning
+  calc_rsquared(y = y, yhat = list(x, w))
 
 })
 
