@@ -218,49 +218,45 @@ r2_lsa
 
 # Parallelization/distributed computing for large data sets
 
-You say you have BIG DATA?!?! Below is an example of how to chop up a calculation and have r-squared built in parallel. `mvrsquared` doesn't have a parallel back end itself. You can bring your own. (I recommend using `furrr` which is built on the wonderful `future` package.) However, what `mvrsquared` does is have the option to return only the sums of squares (specifically SSE and SST). You can calculate these in parallel/distributed and combine them by adding post-hoc. (That's a little algorithm called "map-reduce" for those in the know.) Once combined, you can calculate R-squared yourself with the cannonical formula $1 - \frac{SSE}{SST}$. 
+You say you have BIG DATA?!?! Below is an example of how to chop up a calculation and have r-squared built in parallel. `mvrsquared` doesn't have a parallel back end itself. You can bring your own. (I recommend using `furrr` which is built on the wonderful `future` package. The example below uses `parallel::mclapply` which will parallelize on Windows.) However, what `mvrsquared` does is have the option to return only the sums of squares (specifically SSE and SST). You can calculate these in parallel/distributed and combine them by adding post-hoc. (That's a little algorithm called "map-reduce" for those in the know.) Once combined, you can calculate R-squared yourself with the cannonical formula $1 - \frac{SSE}{SST}$. 
 
 Note: You **must** calculate the mean of your outcome, $\bar{y}$, first and hand it off to `calc_rsquared`. Otherwise, your calculations for SST on a given core will be based only on the observations sent to that core, not the whole data set. (If you do this, `calc_rsquared` will give you a WARNING.)
 
-Below is a toy example using `furr::future_map` to run parallel computations calculating R-squared for our LDA model, above. (Yes, this is overkill for our toy problem and it will actually be slower due to overhead. But imagine the calculations for a corpus of ~1 million documents with hundreds-of-thousands or millions of unique tokens.)
+Below is a toy example using `parallel::mclapply` to run parallel computations calculating R-squared for our LDA model, above. (Yes, this is overkill for our toy problem and it will actually be slower due to overhead. But imagine the calculations for a corpus of ~1 million documents with hundreds-of-thousands or millions of unique tokens.)
 
 ```{r}
-library(furrr, quietly = TRUE)
+library(parallel, quietly = TRUE)
 
-# define what type of parallelism to use
-plan(multisession) 
+batches <- mclapply(X =cseq(1, nrow(dtm), by = batch_size),
+                    FUN = function(b){
+                      
+                      # rows to select on
+                      rows <- b:min(b + batch_size - 1, nrow(dtm))
+                      
+                      # rows of the dtm
+                      y_batch <- dtm[rows, ]
+                      
+                      # rows of theta multiplied by document length
+                      x_batch <- rowSums(y_batch) * lda$theta[rows, ]
+                      
+                      list(y = y_batch,
+                           x = x_batch)
+                    }, mc.cores = 2)
 
-# divide the data and model into batches
-batch_size <- 10
-
-batches <- future_map(.x = seq(1, nrow(dtm), by = batch_size),
-                      .f = function(b){
-                        
-                        # rows to select on
-                        rows <- b:min(b + batch_size - 1, nrow(dtm))
-                        
-                        # rows of the dtm
-                        y_batch <- dtm[rows, ]
-                        
-                        # rows of theta multiplied by document length
-                        x_batch <- rowSums(y_batch) * lda$theta[rows, ]
-                        
-                        list(y = y_batch,
-                             x = x_batch)
-                      }, .options = future_options(scheduling = 2)) # 2 cores!
 
 # calculate ybar for the data
 # in this case, lazily doing colMeans, but you could divide this problem up too
 ybar <- colMeans(dtm)
 
 # MAP: calculate sums of squares
-ss <- future_map(.x = batches,
-                 .f = function(batch){
-                   calc_rsquared(y = batch$y,
-                                 yhat = list(x = batch$x, w = lda$phi),
-                                 ybar = ybar,
-                                 return_ss_only = TRUE)
-                 }, .options = future_options(scheduling = 2)) # 2 cores!
+ss <- mclapply(X = batches,
+               FUN = function(batch){
+                 calc_rsquared(y = batch$y,
+                               yhat = list(x = batch$x, w = lda$phi),
+                               ybar = ybar,
+                               return_ss_only = TRUE)
+               }, mc.cores = 2)
+
 
 # REDUCE: get SST and SSE by summation
 ss <- do.call(rbind, ss) %>% colSums()
