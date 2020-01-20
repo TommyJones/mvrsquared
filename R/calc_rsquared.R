@@ -201,11 +201,41 @@ handle_yhat <- function(yhat, dim_y) {
       message("'yhat' is a list with more than two elements. Only the first two
               will be used.")
 
+    # below allows you to pass named elements to the list that will get figured out
+    if (sum(names(yhat) %in% c("x", "w")) > 0) {
+
+      if (sum(names(yhat) %in% c("x", "w")) == 2) {
+
+        yhat <- yhat[c("x", "w")]
+
+      } else if (sum(names(yhat) %in% c("x", "w")) == 1) {
+
+        warning("Found only one element of 'yhat' named 'x' or 'w'. Ignoring
+                names of 'yhat' and using the first element as 'x' and the
+                second elment as 'w'. You can explicitly name the elements of
+                of 'yhat' as 'x' for the data matrix and 'w' for the weights.")
+
+        yhat <- yhat[1:2]
+
+      } else if (sum(names(yhat) %in% c("x", "w")) > 2) {
+        warning("Found only multiple elements of 'yhat' named 'x' or 'w'. Ignoring
+                names of 'yhat' and using the first element as 'x' and the
+                second elment as 'w'. You can explicitly name the elements of
+                of 'yhat' as 'x' for the data matrix and 'w' for the weights.")
+
+        yhat <- yhat[1:2]
+
+      }
+
+    }
+
     if (sum(c(nrow(yhat[[1]]), ncol(yhat[[2]])) == dim_y) != 2 ||
         ncol(yhat[[1]]) != nrow(yhat[[2]]))
       stop("Dimensions of matrices in 'yhat' are not compatible. Either these
            matrices cannot be multiplied together or the result of their dot
            product does not have the same dimensions as 'y'.")
+
+
 
   }
 
