@@ -1,6 +1,7 @@
 
-#' @title Calculate R-Squared for Univariate or Multivariate Outcomes.
-#' @description Describe me.
+#' @title Calculate R-Squared.
+#' @description
+#'     Calculate R-Squared for univariate or multivariate outcomes.
 #'
 #' @param y The true outcome. This must be a numeric vector, numeric matrix, or
 #'          coerable to a sparse matrix of class \code{dgCMatrix}. See 'Details'
@@ -11,19 +12,36 @@
 #'             computation in batches.
 #' @param return_ss_only Logical. Do you want to forego calculating R-squared and
 #'                       only return the sums of squares?
-#' @return If \code{return_ss_only = FALSE} returns a numeric scalar R-squared.
-#'         If \code{return_ss_only = TRUE} returns a vector; the first element is
-#'         the error sum of squares (SSE) and the second element is the total
-#'         sum of squares (SST). R-squared may then be calculated as \code{1 - SSE / SST}.
-#' @note Setting \code{return_ss_only} to \code{TRUE} is useful for parallel or
-#'       distributed computing for large data sets, particularly when \code{y} is
-#'       a large matrix. However if you do parallel execution you MUST pre-calculate
-#'       'ybar' and pass it to the function. If you do not, SST will be calculated
-#'       based on means of each batch independently. The resulting r-squared will
-#'       be incorrect.
+#' @return
+#'     If \code{return_ss_only = FALSE}, \code{calc_rsqured} returns a numeric
+#'     scalar R-squared. If \code{return_ss_only = TRUE}, \code{calc_rsqured}
+#'     returns a vector; the first element is the error sum of squares (SSE) and
+#'     the second element is the total sum of squares (SST). R-squared may then
+#'     be calculated as \code{1 - SSE / SST}.
 #'
-#'       See example below for parallel computation with \code{\link[furrr]{future_map}}
-#'       from the \code{furr} package.
+#' @details
+#'     There is some flexibility in what you can pass as \code{y} and \code{yhat}.
+#'     In general, \code{y} can be a numeric vector, numeric matrix, a sparse
+#'     matrix of class \code{dgCMatrix} from the \code{\link[Matrix]{Matrix}} package,
+#'     or any object that can be coerced into a \code{dgCMatrix}.
+#'
+#'     \code{yhat} can be a numeric vector, numeric matrix, or a list of two
+#'     matrices whose dot product has the same dimensionality as \code{y}. If
+#'     \code{yhat} is a list of two matrices you may optionally name them \code{x}
+#'     and \code{w} indicating the order of multiplication (\code{x} left
+#'     multiplies \code{w}). If unnamed or ambiguously named, then it is assumed
+#'     that \code{yhat[[1]]} left multiplies \code{yhat[[2]]}.
+#'
+#' @note
+#'     Setting \code{return_ss_only} to \code{TRUE} is useful for parallel or
+#'     distributed computing for large data sets, particularly when \code{y} is
+#'     a large matrix. However if you do parallel execution you MUST pre-calculate
+#'     'ybar' and pass it to the function. If you do not, SST will be calculated
+#'     based on means of each batch independently. The resulting r-squared will
+#'     be incorrect.
+#'
+#'     See example below for parallel computation with \code{\link[furrr]{future_map}}
+#'     from the \code{furr} package.
 #' @examples
 #'
 #' # standard r-squared with y and yhat as vectors
