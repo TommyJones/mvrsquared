@@ -13,4 +13,4 @@ r_packages:
   - covr
 
 after_success:
-  - Rscript -e 'library(covr); codecov()'    before_cache:
+  - Rscript -e 'library(covr); codecov()'
