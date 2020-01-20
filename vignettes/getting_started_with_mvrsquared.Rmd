@@ -160,7 +160,7 @@ tidy_docs <- docs %>%
   select(APPLICATION_ID, ABSTRACT_TEXT) %>% 
   unnest_tokens(output = word, 
                 input = ABSTRACT_TEXT,
-                stopwords = stop_words %>% filter(lexicon == "SMART") %>% select(word),
+                stopwords = stop_words$word,
                 token = "ngrams",
                 n_min = 1, n = 2) %>% 
   count(APPLICATION_ID, word) %>% 
