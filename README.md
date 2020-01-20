@@ -28,4 +28,3 @@ install.packages("mvrsquared")
 ### Additional things I will do before releasing to CRAN
 
 1. Set this up with travis CI
-4. Make a details section in the help of calc_rsquared that explains y and yhat inputs
