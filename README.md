@@ -1,3 +1,7 @@
+[![Travis-CI Build Status](https://travis-ci.org/TommyJones/mvrsquared.svg?branch=master)](https://travis-ci.org/TommyJones/mvrsquared)
+[![Coverage Status](https://img.shields.io/codecov/c/github/tommyjones/mvrsquared/master.svg)](https://codecov.io/github/tommyjones/mvrsquared?branch=master)
+
+
 Welcome to the `mvrsquared` package! This package does one thing: calculate the [coefficinet of determination](https://en.wikipedia.org/coefficient-of-determination) or R-squared. However, this implementation is different from what you may be familiar with. In addition to the standard R-squared used frequently in linear regression, `mvrsquared` calculates R-squared for multivariate outcomes. (This is why there is an 'mv' in `mvrsquared`).
 
 `mvrsquared` implements R-squared based on a derivation in [this paper](https://arxiv.org/abs/1911.11061). It's the same definition of R-squared you're probably familiar with ($1 - \frac{SSE}{SST}$) but generalized to n-dimensions.
@@ -28,3 +32,7 @@ install.packages("mvrsquared")
 ### Additional things I will do before releasing to CRAN
 
 1. Set this up with travis CI
+2. Get some code coverage on this bad boy 
+  ("\*slaps hood\* 'this bad boy can fit so much code coverage in it.'")
+3. Make a news file
+4. Make a cran comments file
