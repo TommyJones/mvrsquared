@@ -21,7 +21,10 @@ Imports:
 Suggests:
     furrr,
     knitr,
-    testthat
+    stats,
+    testthat,
+    textmineR,
+    tidytext
 LinkingTo: 
     Rcpp,
     RcppArmadillo
