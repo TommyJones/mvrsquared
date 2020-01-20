@@ -1,7 +1,6 @@
 testthat::context("mvrsquared tests")
 
-### test vanilla rsquared ----
-
+### Test univariate rsquared ----
 f <- stats::lm(mpg ~ cyl + disp + hp + wt, data = datasets::mtcars)
 
 y <- f$model$mpg
@@ -10,7 +9,7 @@ yhat <- f$fitted.values
 
 s <- summary(f)
 
-testthat::test_that("We get the expected value for correct inputs to vanilla rsquared",{
+testthat::test_that("We get the expected value for correct inputs to univariate rsquared",{
 
   r2 <- calc_rsquared(y = y, yhat = yhat)
 
@@ -35,6 +34,16 @@ testthat::test_that("Get the right r-squared for single column matrix inputs", {
 
   testthat::expect_equal(calc_rsquared(y = y_mat, yhat = list(x, w)),
                          calc_rsquared(y = y, yhat = yhat))
+
+})
+
+
+
+### fancier stuff ----
+
+testthat::test_that("passing data.frames or tibbles doesn't throw an error", {
+
+
 
 })
 
