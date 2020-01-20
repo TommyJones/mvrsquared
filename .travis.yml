@@ -1,60 +1,16 @@
-# R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
-
 language: R
-sudo: required
 cache: packages
+sudo: false
 warnings_are_errors: false
-r_build_args: --no-build-vignettes
+
 addons:
   apt:
     packages:
-    - libgsl0-dev
-r_binary_packages:
-  - devtools
-  - mime
-  - curl
-  - openssl
-  - R6
-  - httr
-  - memoise
-  - whisker
-  - digest
-  - rstudioapi
-  - jsonlite
-  - git2r
-  - withr
-  - httr
-  - igraph
-  - magrittr
-  - knitr
-  - evaluate
-  - stringr
-  - glue
-  - stringi
-  - highr
-  - markdown
-  - yaml
-  - Rcpp
-  - RcppArmadillo
-  - RcppProgress
-  - base64enc
-  - htmltools
-  - rprojroot
-  - backports
-  - RcppEigen
-  - SnowballC
-  - data.table
-  - foreach
-  - iterators
-  - futile.logger
-  - futile.options
-  - lambda.r
-  - formatR
-  - irlba
-  - tm
-  - NLP
-  - slam
-  - xml2
-  - modeltools
-  - wordcloud
-  - RColorBrewer
+      - libgsl0-dev # for topicmodels
+      - libxml2-dev # for XML, a dependency of quanteda
+
+r_packages:
+  - covr
+
+after_success:
+  - Rscript -e 'library(covr); codecov()'    before_cache:
