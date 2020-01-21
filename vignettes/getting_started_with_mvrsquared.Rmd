@@ -217,13 +217,15 @@ r2_lsa
 
 # Parallelization/distributed computing for large data sets
 
-You say you have BIG DATA?!?! Below is an example of how to chop up a calculation and have r-squared built in parallel. `mvrsquared` doesn't have a parallel back end itself. You can bring your own. (I recommend using `furrr` which is built on the wonderful `future` package. The example below uses `parallel::mclapply` which will parallelize on Windows.) However, what `mvrsquared` does is have the option to return only the sums of squares (specifically SSE and SST). You can calculate these in parallel/distributed and combine them by adding post-hoc. (That's a little algorithm called "map-reduce" for those in the know.) Once combined, you can calculate R-squared yourself with the cannonical formula $1 - \frac{SSE}{SST}$. 
+You say you have BIG DATA?!?! Below is an example of how to chop up a calculation and have r-squared built in parallel. `mvrsquared` doesn't have a parallel back end itself. You can bring your own. (I recommend using `furrr` which is built on the wonderful `future` package. The example below uses `parallel::mclapply` which will not parallelize on Windows.) However, what `mvrsquared` does is have the option to return only the sums of squares (specifically SSE and SST). You can calculate these in parallel/distributed and combine them by adding post-hoc. (That's a little algorithm called "map-reduce" for those in the know.) Once combined, you can calculate R-squared yourself with the cannonical formula $1 - \frac{SSE}{SST}$. 
 
 Note: You **must** calculate the mean of your outcome, $\bar{y}$, first and hand it off to `calc_rsquared`. Otherwise, your calculations for SST on a given core will be based only on the observations sent to that core, not the whole data set. (If you do this, `calc_rsquared` will give you a WARNING.)
 
 Below is a toy example using `parallel::mclapply` to run parallel computations calculating R-squared for our LDA model, above. (Yes, this is overkill for our toy problem and it will actually be slower due to overhead. But imagine the calculations for a corpus of ~1 million documents with hundreds-of-thousands or millions of unique tokens.)
 
-```{r}
+Because the below example uses parallel execution, which can be tricky when working with CRAN, I'm not actually evaluating it in this vignette. However, you can run the code yourself.
+
+```{r eval = FALSE}
 library(parallel)
 
 batch_size <- 10
