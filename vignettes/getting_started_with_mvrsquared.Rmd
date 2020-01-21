@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 ```
 
 # Introduction
-Welcome to the `mvrsquared` package! This package does one thing: calculate the [coefficinet of determination](https://en.wikipedia.org/coefficient-of-determination) or R-squared. However, this implementation is different from what you may be familiar with. In addition to the standard R-squared used frequently in linear regression, `mvrsquared` calculates R-squared for multivariate outcomes. (This is why there is an 'mv' in `mvrsquared`).
+Welcome to the `mvrsquared` package! This package does one thing: calculate the [coefficinet of determination](https://en.wikipedia.org/wiki/Coefficient_of_determination) or R-squared. However, this implementation is different from what you may be familiar with. In addition to the standard R-squared used frequently in linear regression, `mvrsquared` calculates R-squared for multivariate outcomes. (This is why there is an 'mv' in `mvrsquared`).
 
 `mvrsquared` implements R-squared based on a derivation in [this paper](https://arxiv.org/abs/1911.11061). It's the same definition of R-squared you're probably familiar with ($1 - \frac{SSE}{SST}$) but generalized to n-dimensions.
 
@@ -201,7 +201,7 @@ r2_lda
 
 Latent semantic analysis (LSA) uses a single value decomposition of a document term matrix as a non-probabilistic topic model.
 
-Note the example below doesn't use [TF-IDF](https://en.wikipedia.org/tf-idf) even though most folks recommend you do. For a more thorough example of LSA (and LDA) see `textmineR`'s [vignette on topic modeling](link.to.vignette).
+Note the example below doesn't use [TF-IDF](https://en.wikipedia.org/wiki/Tf%E2%80%93idf) even though most folks recommend you do. For a more thorough example of LSA (and LDA) see `textmineR`'s [vignette on topic modeling](https://www.rtextminer.com/articles/c_topic_modeling.html).
 
 ```{r}
 
