@@ -157,7 +157,7 @@ handle_y <- function(y) {
 
   } else {
 
-    if (! class(y) == "dgCMatrix") {
+    if (! "dgCMatrix" %in% class(y)) {
 
       Y <- methods::as(y, "dgCMatrix")
 
