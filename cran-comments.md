@@ -1,6 +1,6 @@
 ## Release Summary
 
-This is the 1st CRAN release of mvrsquared, though not my first package on CRAN. I have had textmineR on CRAN since 2015.  
+This is the 1st CRAN release of mvrsquared, though not my first package on CRAN. I have had textmineR on CRAN since 2015. This package spins out a function introduced in textmineR and generalizes it for a broad range of problems.
 
 ## Test environments
 
@@ -11,7 +11,9 @@ This is the 1st CRAN release of mvrsquared, though not my first package on CRAN.
 
 ## R CMD check results
 
-0 errors | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 notes
+
+On most builds there is 1 NOTE flagging this as a "New submission"
 
 ## Downstream dependencies
 
