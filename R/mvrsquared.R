@@ -17,8 +17,8 @@
 #' In the standard case, your outcome and prediction are vectors. In other words,
 #' each observation is a single number. This is fine if you are predicting a
 #' single variable. But what if you are predicting multiple variables at once?
-#' In that case, your outcome and prediction are matrices. This situation occures
-#' frequently in topic modeling or simultaneious equation modeling.
+#' In that case, your outcome and prediction are matrices. This situation occurs
+#' frequently in topic modeling or simultaneous equation modeling.
 #'
 #' @name mvrsquared
 #' @docType package

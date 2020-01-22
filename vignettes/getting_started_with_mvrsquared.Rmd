@@ -18,11 +18,11 @@ knitr::opts_chunk$set(
 ```
 
 # Introduction
-Welcome to the `mvrsquared` package! This package does one thing: calculate the [coefficinet of determination](https://en.wikipedia.org/wiki/Coefficient_of_determination) or R-squared. However, this implementation is different from what you may be familiar with. In addition to the standard R-squared used frequently in linear regression, `mvrsquared` calculates R-squared for multivariate outcomes. (This is why there is an 'mv' in `mvrsquared`).
+Welcome to the `mvrsquared` package! This package does one thing: calculate the [coefficient of determination](https://en.wikipedia.org/wiki/Coefficient_of_determination) or R-squared. However, this implementation is different from what you may be familiar with. In addition to the standard R-squared used frequently in linear regression, `mvrsquared` calculates R-squared for multivariate outcomes. (This is why there is an 'mv' in `mvrsquared`).
 
 `mvrsquared` implements R-squared based on a derivation in [this paper](https://arxiv.org/abs/1911.11061). It's the same definition of R-squared you're probably familiar with ($1 - \frac{SSE}{SST}$) but generalized to n-dimensions.
 
-In the standard case, your outcome $y$ and prediction $\hat{y}$ are vectors. In other words, each observation is a single number. This is fine if you are predicting a single variable. But what if you are predicting multiple variables at once? In that case, $y$ and $\hat{y}$ are matrices. This situation occures frequently in topic modeling or simultaneious equation modeling.
+In the standard case, your outcome $y$ and prediction $\hat{y}$ are vectors. In other words, each observation is a single number. This is fine if you are predicting a single variable. But what if you are predicting multiple variables at once? In that case, $y$ and $\hat{y}$ are matrices. This situation occurs frequently in topic modeling or simultaneous equation modeling.
 
 Below are some examples of using `mvrsquared` for calculating R-squared in the traditional context and for multivariate outcomes.
 
@@ -67,7 +67,7 @@ x <- cbind(1, f$model[, -1]) # note, you have to add 1's for the intercept and
 
 x <- as.matrix(x) # x needs to be a matrix, not a data.frame or tibble for now
 
-w <- matrix(f$coefficients, ncol = 1) # w also has to be a matrix
+w <- matrix(f$coefficientcients, ncol = 1) # w also has to be a matrix
 
 # this calculates yhat as the dot product x %*% w
 r2_mv2 <- calc_rsquared(y = mtcars$mpg, 
@@ -182,11 +182,11 @@ lda <- FitLdaModel(dtm = dtm,
 
 ```
 
-The paper notes that for a probabilistic topic model, $\hat{y} = \vec{n} \odot \Theta \cdot \Phi$, where $\vec{n}$ is a vector of docuemnt lengths, $\odot$ is elementwise multiplication, $\Theta$ is a matrix of topic distributions over documents, and $\Phi$ is a matrix of token distributions over topics. 
+The paper notes that for a probabilistic topic model, $\hat{y} = \vec{n} \odot \Theta \cdot \Phi$, where $\vec{n}$ is a vector of document lengths, $\odot$ is elementwise multiplication, $\Theta$ is a matrix of topic distributions over documents, and $\Phi$ is a matrix of token distributions over topics. 
 
-Doing this mulitiplication explicitly in R could lead you to run out of RAM for a decently-sized corpus. (This toy example won't.) Luckily, we can use the ability to pass a list `x` and `w` to `calc_rsquared` to do that multiplication more efficiently. In that case, we set `x` $= \vec{n}\odot\Theta$ and `w` $= \Phi$.
+Doing this multiplication explicitly in R could lead you to run out of RAM for a decently-sized corpus. (This toy example won't.) Luckily, we can use the ability to pass a list `x` and `w` to `calc_rsquared` to do that multiplication more efficiently. In that case, we set `x` $= \vec{n}\odot\Theta$ and `w` $= \Phi$.
 
-(Note that you can pass a sparse `dgCMatrix` from the `Matrix` or something coercable to one directly to `calc_rsquared`.)
+(Note that you can pass a sparse `dgCMatrix` from the `Matrix` or something coercible to one directly to `calc_rsquared`.)
 
 ```{r}
 r2_lda <- calc_rsquared(y = dtm, 
@@ -217,7 +217,7 @@ r2_lsa
 
 # Parallelization/distributed computing for large data sets
 
-You say you have BIG DATA?!?! Below is an example of how to chop up a calculation and have r-squared built in parallel. `mvrsquared` doesn't have a parallel back end itself. You can bring your own. (I recommend using `furrr` which is built on the wonderful `future` package. The example below uses `parallel::mclapply` which will not parallelize on Windows.) However, what `mvrsquared` does is have the option to return only the sums of squares (specifically SSE and SST). You can calculate these in parallel/distributed and combine them by adding post-hoc. (That's a little algorithm called "map-reduce" for those in the know.) Once combined, you can calculate R-squared yourself with the cannonical formula $1 - \frac{SSE}{SST}$. 
+You say you have BIG DATA?!?! Below is an example of how to chop up a calculation and have r-squared built in parallel. `mvrsquared` doesn't have a parallel back end itself. You can bring your own. (I recommend using `furrr` which is built on the wonderful `future` package. The example below uses `parallel::mclapply` which will not parallelize on Windows.) However, what `mvrsquared` does is have the option to return only the sums of squares (specifically SSE and SST). You can calculate these in parallel/distributed and combine them by adding post-hoc. (That's a little algorithm called "map-reduce" for those in the know.) Once combined, you can calculate R-squared yourself with the canonical formula $1 - \frac{SSE}{SST}$. 
 
 Note: You **must** calculate the mean of your outcome, $\bar{y}$, first and hand it off to `calc_rsquared`. Otherwise, your calculations for SST on a given core will be based only on the observations sent to that core, not the whole data set. (If you do this, `calc_rsquared` will give you a WARNING.)
 

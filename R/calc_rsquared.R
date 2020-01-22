@@ -4,7 +4,7 @@
 #'     Calculate R-Squared for univariate or multivariate outcomes.
 #'
 #' @param y The true outcome. This must be a numeric vector, numeric matrix, or
-#'          coerable to a sparse matrix of class \code{dgCMatrix}. See 'Details'
+#'          coercible to a sparse matrix of class \code{dgCMatrix}. See 'Details'
 #'          below for more information.
 #' @param yhat The predicted outcome or a list of two matrices whose dot product
 #'             makes the predicted outcome. See 'Details' below for more information.

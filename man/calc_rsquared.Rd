@@ -8,7 +8,7 @@ calc_rsquared(y, yhat, ybar = NULL, return_ss_only = FALSE)
 }
 \arguments{
 \item{y}{The true outcome. This must be a numeric vector, numeric matrix, or
-coerable to a sparse matrix of class \code{dgCMatrix}. See 'Details'
+coercible to a sparse matrix of class \code{dgCMatrix}. See 'Details'
 below for more information.}
 
 \item{yhat}{The predicted outcome or a list of two matrices whose dot product

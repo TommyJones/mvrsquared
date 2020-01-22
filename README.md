@@ -6,7 +6,7 @@ Welcome to the `mvrsquared` package! This package does one thing: calculate the 
 
 `mvrsquared` implements R-squared based on a derivation in [this paper](https://arxiv.org/abs/1911.11061). It's the same definition of R-squared you're probably familiar with ($1 - \frac{SSE}{SST}$) but generalized to n-dimensions.
 
-In the standard case, your outcome $y$ and prediction $\hat{y}$ are vectors. In other words, each observation is a single number. This is fine if you are predicting a single variable. But what if you are predicting multiple variables at once? In that case, $y$ and $\hat{y}$ are matrices. This situation occures frequently in topic modeling or simultaneious equation modeling.
+In the standard case, your outcome $y$ and prediction $\hat{y}$ are vectors. In other words, each observation is a single number. This is fine if you are predicting a single variable. But what if you are predicting multiple variables at once? In that case, $y$ and $\hat{y}$ are matrices. This situation occurs frequently in topic modeling or simultaneous equation modeling.
 
 ### Installation
 
