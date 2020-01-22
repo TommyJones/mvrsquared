@@ -1,4 +1,4 @@
-[![Travis-CI Build Status](https://travis-ci.org/TommyJones/mvrsquared.svg?branch=master)](https://travis-ci.org/TommyJones/mvrsquared)
+[![Travis-CI Build Status](https://travis-ci.com/TommyJones/mvrsquared.svg?branch=master)](https://travis-ci.com/TommyJones/mvrsquared)
 [![Coverage Status](https://img.shields.io/codecov/c/github/tommyjones/mvrsquared/master.svg)](https://codecov.io/github/tommyjones/mvrsquared?branch=master)
 
 
