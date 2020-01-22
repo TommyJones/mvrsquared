@@ -67,7 +67,7 @@ x <- cbind(1, f$model[, -1]) # note, you have to add 1's for the intercept and
 
 x <- as.matrix(x) # x needs to be a matrix, not a data.frame or tibble for now
 
-w <- matrix(f$coefficientcients, ncol = 1) # w also has to be a matrix
+w <- matrix(f$coefficients, ncol = 1) # w also has to be a matrix
 
 # this calculates yhat as the dot product x %*% w
 r2_mv2 <- calc_rsquared(y = mtcars$mpg, 
