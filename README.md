@@ -1,5 +1,8 @@
+<!-- badges: start -->
+[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/TommyJones/mvrsquared?branch=master&svg=true)](https://ci.appveyor.com/project/TommyJones/mvrsquared)
 [![Travis-CI Build Status](https://travis-ci.com/TommyJones/mvrsquared.svg?branch=master)](https://travis-ci.com/TommyJones/mvrsquared)
 [![Coverage Status](https://img.shields.io/codecov/c/github/tommyjones/mvrsquared/master.svg)](https://codecov.io/github/tommyjones/mvrsquared?branch=master)
+<!-- badges: end -->
 
 
 Welcome to the `mvrsquared` package! This package does one thing: calculate the coefficient of determination or R-squared. However, this implementation is different from what you may be familiar with. In addition to the standard R-squared used frequently in linear regression, `mvrsquared` calculates R-squared for multivariate outcomes. (This is why there is an 'mv' in `mvrsquared`).
