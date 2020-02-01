@@ -124,3 +124,22 @@ testthat::test_that("batch (for parallel) computation behaves nicely", {
                                   }))
 
 })
+
+test_that("Errors are triggered for malformed inputs",{
+
+  expect_error(calc_rsquared(y = y, yhat = yhat, return_ss_only = NA))
+
+  expect_error(calc_rsquared(y = y, yhat = yhat, ybar = c(1,1)))
+
+  expect_error(calc_rsquared(y = list(y), yhat = yhat))
+
+  expect_error(calc_rsquared(y = as.character(y), yhat = yhat))
+
+  expect_error(calc_rsquared(y = as.character(y), yhat = yhat))
+
+  expect_error(calc_rsquared(y = y, yhat = data.frame(yhat)))
+
+  expect_error(calc_rsquared(y = y, yhat = 5))
+
+
+})
