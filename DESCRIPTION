@@ -1,7 +1,7 @@
 Package: mvrsquared
 Type: Package
 Title: Compute the Coefficient of Determination for Vector or Matrix Outcomes
-Version: 0.0.1
+Version: 0.0.2
 Authors@R: c(
     person("Tommy", "Jones", role = c("aut", "cre"), email = "jones.thos.w@gmail.com")
     )
@@ -9,7 +9,7 @@ Description: Compute the coefficient of determination for outcomes in n-dimensio
   May be useful for multidimensional predictions (such as a multinomial model) or
   calculating goodness of fit from latent variable models such as probabilistic
   topic models like latent Dirichlet allocation or deterministic topic models 
-  like latent semantic analysis.
+  like latent semantic analysis. Based on Jones (2019) <arXiv:1911.11061>
 License: MIT + file LICENSE
 Encoding: UTF-8
 URL: https://github.com/TommyJones/mvrsquared

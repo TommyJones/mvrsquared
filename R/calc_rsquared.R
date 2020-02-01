@@ -69,7 +69,7 @@
 #' calc_rsquared(y = cbind(y, y), yhat = list(x, cbind(w,w)))
 #'
 #' # multivariate r-squared calculated in parallel
-#' \dontrun{
+#' \donttest{
 #' library(furrr)
 #'
 #' plan(multiprocess)

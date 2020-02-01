@@ -1,6 +1,9 @@
 ## Release Summary
 
-This is the 1st CRAN release of mvrsquared, though not my first package on CRAN. I have had textmineR on CRAN since 2015. This package spins out a function introduced in textmineR and generalizes it for a broad range of problems.
+This is a patch with fixes requested by CRAN. I have included
+
+* An arXiv citation to the working paper deriving this method
+* Changes to examples requested by CRAN. '\dontrun{}' has been changed to '\donttest{}'
 
 ## Test environments
 
