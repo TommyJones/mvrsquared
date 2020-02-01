@@ -4,22 +4,22 @@
 
 Welcome to the `mvrsquared` package! This package does one thing: calculate the coefficient of determination or R-squared. However, this implementation is different from what you may be familiar with. In addition to the standard R-squared used frequently in linear regression, `mvrsquared` calculates R-squared for multivariate outcomes. (This is why there is an 'mv' in `mvrsquared`).
 
-`mvrsquared` implements R-squared based on a derivation in [this paper](https://arxiv.org/abs/1911.11061). It's the same definition of R-squared you're probably familiar with ($1 - \frac{SSE}{SST}$) but generalized to n-dimensions.
+`mvrsquared` implements R-squared based on a derivation in [this paper](https://arxiv.org/abs/1911.11061). It's the same definition of R-squared you're probably familiar with (1 - SSE/SST) but generalized to n-dimensions.
 
-In the standard case, your outcome $y$ and prediction $\hat{y}$ are vectors. In other words, each observation is a single number. This is fine if you are predicting a single variable. But what if you are predicting multiple variables at once? In that case, $y$ and $\hat{y}$ are matrices. This situation occurs frequently in topic modeling or simultaneous equation modeling.
+In the standard case, your outcome `y` and prediction `yhat` are vectors. In other words, each observation is a single number. This is fine if you are predicting a single variable. But what if you are predicting multiple variables at once? In that case, `y` and `yhat` are matrices. This situation occurs frequently in topic modeling or simultaneous equation modeling.
 
 ### Installation
 
-For now you can get the development version with 
-
-```
-devtools::install_github("tommyjones/mvrsquared")
-```
-
-In the not-to-distant future you will (I hope) be able to get this on CRAN with
+You can install from CRAN with
 
 ```
 install.packages("mvrsquared")
+```
+
+You can get the development version with 
+
+```
+devtools::install_github("tommyjones/mvrsquared")
 ```
 
 ### Check out the vignette to see how to...

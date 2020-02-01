@@ -5,6 +5,8 @@ This is a patch with fixes requested by CRAN. I have included
 * An arXiv citation to the working paper deriving this method
 * Changes to examples requested by CRAN. '\dontrun{}' has been changed to '\donttest{}'
 
+In addition, I've updated the README for readability.
+
 ## Test environments
 
 * Local OS X install, R 3.6.2
