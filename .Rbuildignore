@@ -10,3 +10,4 @@
 ^Meta$
 ^CRAN-RELEASE$
 ^appveyor\.yml$
+^man/figures/mvrsquared_logo.svg$

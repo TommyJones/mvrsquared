@@ -4,6 +4,7 @@
 [![Coverage Status](https://img.shields.io/codecov/c/github/tommyjones/mvrsquared/master.svg)](https://codecov.io/github/tommyjones/mvrsquared?branch=master)
 <!-- badges: end -->
 
+# mvrsquared <img src='man/figures/logo.png' align="right" height="136.5" />
 
 Welcome to the `mvrsquared` package! This package does one thing: calculate the coefficient of determination or R-squared. However, this implementation is different from what you may be familiar with. In addition to the standard R-squared used frequently in linear regression, `mvrsquared` calculates R-squared for multivariate outcomes. (This is why there is an 'mv' in `mvrsquared`).
 
