@@ -1,3 +1,5 @@
+# mvrsquared v0.0.4 (forthcoming)
+
 # mvrsquared v0.0.3
 This version makes some changes to documentation including the README
 
