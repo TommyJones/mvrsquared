@@ -25,7 +25,9 @@ install.packages("mvrsquared")
 You can get the development version with 
 
 ```
-devtools::install_github("tommyjones/mvrsquared")
+install.packages("remotes")
+
+remotes::install_github("tommyjones/mvrsquared")
 ```
 
 ### Check out the vignette to see how to...
