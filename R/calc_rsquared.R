@@ -132,7 +132,11 @@ calc_rsquared <- function(y, yhat, ybar = NULL, return_ss_only = FALSE) {
 
   } else {
 
-    return(1 - result[1] / result[2])
+    out <- 1 - result[1] / result[2]
+
+    names(out) <- NULL
+
+    return(out)
 
   }
 }
