@@ -1,7 +1,7 @@
 <!-- badges: start -->
-[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/TommyJones/mvrsquared?branch=master&svg=true)](https://ci.appveyor.com/project/TommyJones/mvrsquared)
-[![Travis-CI Build Status](https://travis-ci.com/TommyJones/mvrsquared.svg?branch=master)](https://travis-ci.com/TommyJones/mvrsquared)
-[![Coverage Status](https://img.shields.io/codecov/c/github/tommyjones/mvrsquared/master.svg)](https://codecov.io/github/tommyjones/mvrsquared?branch=master)
+[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/TommyJones/mvrsquared?branch=main&svg=true)](https://ci.appveyor.com/project/TommyJones/mvrsquared)
+[![Travis-CI Build Status](https://travis-ci.com/TommyJones/mvrsquared.svg?branch=main)](https://travis-ci.com/TommyJones/mvrsquared)
+[![Coverage Status](https://img.shields.io/codecov/c/github/tommyjones/mvrsquared/main.svg)](https://codecov.io/github/tommyjones/mvrsquared?branch=main)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/mvrsquared)](https://cran.r-project.org/package=mvrsquared)
 [![Total Downloads](https://cranlogs.r-pkg.org/badges/grand-total/mvrsquared?color=orange)](https://CRAN.R-project.org/package=mvrsquared)
 <!-- badges: end -->
