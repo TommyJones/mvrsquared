@@ -34,6 +34,7 @@ Suggests:
     tidytext
 LinkingTo: 
     Rcpp,
-    RcppArmadillo
-RoxygenNote: 7.0.2
+    RcppArmadillo,
+    RcppThread
+RoxygenNote: 7.1.0
 VignetteBuilder: knitr

@@ -1,4 +1,5 @@
 # mvrsquared v0.0.4 (forthcoming)
+This version introduces parallel processing at the C++ level using RcppThread
 
 # mvrsquared v0.0.3
 This version makes some changes to documentation including the README

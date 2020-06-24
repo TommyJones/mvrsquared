@@ -7,8 +7,8 @@
 using namespace Rcpp;
 
 // calc_sum_squares_latent
-NumericVector calc_sum_squares_latent(arma::sp_mat Y, NumericMatrix X, NumericMatrix W, NumericVector ybar);
-RcppExport SEXP _mvrsquared_calc_sum_squares_latent(SEXP YSEXP, SEXP XSEXP, SEXP WSEXP, SEXP ybarSEXP) {
+NumericVector calc_sum_squares_latent(arma::sp_mat Y, NumericMatrix X, NumericMatrix W, NumericVector ybar, int threads);
+RcppExport SEXP _mvrsquared_calc_sum_squares_latent(SEXP YSEXP, SEXP XSEXP, SEXP WSEXP, SEXP ybarSEXP, SEXP threadsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -16,13 +16,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< NumericMatrix >::type X(XSEXP);
     Rcpp::traits::input_parameter< NumericMatrix >::type W(WSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type ybar(ybarSEXP);
-    rcpp_result_gen = Rcpp::wrap(calc_sum_squares_latent(Y, X, W, ybar));
+    Rcpp::traits::input_parameter< int >::type threads(threadsSEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_sum_squares_latent(Y, X, W, ybar, threads));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_mvrsquared_calc_sum_squares_latent", (DL_FUNC) &_mvrsquared_calc_sum_squares_latent, 4},
+    {"_mvrsquared_calc_sum_squares_latent", (DL_FUNC) &_mvrsquared_calc_sum_squares_latent, 5},
     {NULL, NULL, 0}
 };
 
