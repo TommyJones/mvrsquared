@@ -103,7 +103,7 @@ calc_rsquared <- function(
     ybar <- Matrix::colMeans(Y)
 
   result <- calc_sum_squares_latent(
-    Y = t(Y), # transpose so we can take advantage of column major form
+    Y = Y,
     X = Yhat[[1]],
     W = Yhat[[2]],
     ybar = ybar,

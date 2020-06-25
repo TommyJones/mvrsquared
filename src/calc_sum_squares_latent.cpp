@@ -16,6 +16,8 @@ NumericVector calc_sum_squares_latent(
     int threads
 ) {
 
+  Y = Y.t(); // transpose Y to take advantage of column major for parallelism
+
   int n_obs = Y.n_cols; // number of observations
   NumericVector result(2); // final result
   double SSE = 0; // sum of squared errors across all documents
