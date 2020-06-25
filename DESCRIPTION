@@ -21,7 +21,7 @@ Imports:
     Rcpp (>= 1.0.2)
 Suggests:
     dplyr,
-    furrr, 
+    furrr,
     knitr,
     MASS,
     nnet,
@@ -31,10 +31,12 @@ Suggests:
     stringr,
     testthat,
     textmineR,
-    tidytext
+    tidytext,
+    spelling
 LinkingTo: 
     Rcpp,
     RcppArmadillo,
     RcppThread
 RoxygenNote: 7.1.0
 VignetteBuilder: knitr
+Language: en-US
