@@ -10,9 +10,9 @@ using namespace Rcpp ;
 // [[Rcpp::export]]
 NumericVector calc_sum_squares_latent(
     arma::sp_mat Y,
-    NumericMatrix X,
-    NumericMatrix W,
-    NumericVector ybar,
+    arma::mat X,
+    arma::mat W,
+    arma::vec ybar,
     int threads
 ) {
 
@@ -20,6 +20,9 @@ NumericVector calc_sum_squares_latent(
   NumericVector result(2); // final result
   double SSE = 0; // sum of squared errors across all documents
   double SST = 0; // total sum of squares across all documents
+
+
+  // convert R equivalent classes to arma classes
 
 
   // for each observations...
@@ -39,10 +42,10 @@ NumericVector calc_sum_squares_latent(
       double sse = 0;
       double sst = 0;
 
-      for(int v = 0; v < W.ncol(); v++ ){
+      for(int v = 0; v < W.n_cols; v++ ){
         double Yhat = 0;
 
-        for(int k = 0; k < X.ncol(); k++ ){
+        for(int k = 0; k < X.n_cols; k++ ){
           Yhat = Yhat + X(d , k ) * W(k , v );
         }
 
