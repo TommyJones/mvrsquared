@@ -12,8 +12,8 @@ does not seem to happen when `threads = 1`.
 
 ## Test environments
 
-* Local OS X install, R 4.0.1
-* Local Ubuntu 18.04 install, R 4.0.1
+* Local OS X install, R 4.0.3
+* Local Ubuntu 20.04 install, R 4.0.3
 * Ubuntu 16.04 (on Travis-CI)
 * Win-builder (devel, release, and old release)
 * Using the R Hub service (devel, release, and old release on 6 operating systems)
