@@ -1,10 +1,14 @@
 ## Release Summary
 
-This is a minor release. It introduces parallel processing at the C++ level
-using RcppThread.
+This is a patch release. 
 
-To calculate R-squared in parallel, set the `threads` argument to a number 
-greater than 1 when calling `calc_rsquared`. Default is still sequential processing.
+This patches an error being thrown during testing on some Linux operating systems.
+I've not been able to reproduce the error on Windows or MacOS (or even consistently
+on Linux).
+The root cause seems to be an imprecise calculation introduced in parallel computing.
+This patch should avoid the error. A note was added to `help(calc_rsquared)` to
+warn users that the ultimate cause of imprecision is under investigation and this
+does not seem to happen when `threads = 1`.
 
 ## Test environments
 
