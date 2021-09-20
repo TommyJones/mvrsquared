@@ -14,7 +14,6 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 URL: https://github.com/TommyJones/mvrsquared
 BugReports: https://github.com/TommyJones/mvrsquared/issues
-LazyData: true
 Imports: 
     Matrix,
     methods,
