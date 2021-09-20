@@ -2,21 +2,14 @@
 
 This is a patch release. 
 
-This patches an error being thrown during testing on some Linux operating systems.
-I've not been able to reproduce the error on Windows or MacOS (or even consistently
-on Linux).
-The root cause seems to be an imprecise calculation introduced in parallel computing.
-This patch should avoid the error. A note was added to `help(calc_rsquared)` to
-warn users that the ultimate cause of imprecision is under investigation and this
-does not seem to happen when `threads = 1`.
+This patches an error being thrown when passing large matrices to calc_rquared.
 
 ## Test environments
 
-* Local OS X install, R 4.0.3
-* Local Ubuntu 20.04 install, R 4.0.3
-* Ubuntu 16.04 (on Travis-CI)
-* Win-builder (devel, release, and old release)
-* Using the R Hub service (devel, release, and old release on 6 operating systems)
+* local macOS install: release
+* macOS (on GitHub actions): release
+* ubuntu 20.04 (on GitHub actions): release
+* win-builder: release, devel, and oldrel
 
 ## R CMD check results
 
@@ -24,4 +17,5 @@ does not seem to happen when `threads = 1`.
 
 ## Downstream dependencies
 
-I have no downstream dependencies
+I have one downstream dependency: tidylda. I have checked these changes with
+tidylda and everything works as it should.
