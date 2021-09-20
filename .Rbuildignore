@@ -1,7 +1,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^_notes.md$
-^.travis.yml$
 ^src/*\.o$
 ^src/*\.so$
 ^src/*\.dll$
@@ -9,5 +8,5 @@
 ^doc$
 ^Meta$
 ^CRAN-RELEASE$
-^appveyor\.yml$
 ^man/figures/mvrsquared_logo.svg$
+^\.github$
