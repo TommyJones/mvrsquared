@@ -7,6 +7,7 @@
 // [[Rcpp::depends(RcppThread)]]
 #include "RcppThread.h"
 #include <cmath>
+#include <atomic>
 
 using namespace Rcpp ;
 
@@ -23,8 +24,8 @@ NumericVector calc_sum_squares_latent(
 
   int n_obs = Y.n_cols; // number of observations
   NumericVector result(2); // final result
-  double SSE = 0; // sum of squared errors across all documents
-  double SST = 0; // total sum of squares across all documents
+  std::atomic<double> SSE{ 0 }; // sum of squared errors across all documents
+  std::atomic<double> SST{ 0 }; // total sum of squares across all documents
 
 
   // convert R equivalent classes to arma classes
