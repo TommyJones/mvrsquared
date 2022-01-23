@@ -2,7 +2,7 @@
 
 This is a patch release. 
 
-This patches an error being thrown when passing large matrices to calc_rquared.
+This patch fixes a parallel loop issue that could've caused incorrect computations.
 
 ## Test environments
 
