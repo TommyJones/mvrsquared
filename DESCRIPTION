@@ -1,9 +1,12 @@
 Package: mvrsquared
 Type: Package
 Title: Compute the Coefficient of Determination for Vector or Matrix Outcomes
-Version: 0.1.2
+Version: 0.1.2.999
 Authors@R: c(
-    person("Tommy", "Jones", role = c("aut", "cre"), email = "jones.thos.w@gmail.com")
+    person("Tommy", "Jones", role = c("aut", "cre"), email = "jones.thos.w@gmail.com",
+           comment = c(ORCID = "0000-0001-6457-2452")),
+    person("Thomas", "Nagler",, "mail@tnagler.com", role = c("ctb"),
+           comment = c(ORCID = "0000-0003-1855-0046")
     )
 Description: Compute the coefficient of determination for outcomes in n-dimensions. 
   May be useful for multidimensional predictions (such as a multinomial model) or
