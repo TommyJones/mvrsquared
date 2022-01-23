@@ -1,3 +1,6 @@
+# mvrsquared v0.1.3
+This patch fixes a parallel issue that could've caused incorrect computations.
+
 # mvrsquared v0.1.2
 This patches an error thrown when using large data sets.
 
