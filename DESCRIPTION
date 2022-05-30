@@ -38,7 +38,7 @@ Suggests:
 LinkingTo: 
     Rcpp,
     RcppArmadillo,
-    RcppThread
+    RcppThread (>= 2.1.3)
 RoxygenNote: 7.1.1
 VignetteBuilder: knitr
 Language: en-US
