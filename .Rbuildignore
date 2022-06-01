@@ -11,3 +11,4 @@
 ^man/figures/mvrsquared_logo.svg$
 ^\.github$
 ^revdep$
+^CRAN-SUBMISSION$
