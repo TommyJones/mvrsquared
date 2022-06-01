@@ -22,6 +22,18 @@
 
 
 
+class op_pinv_default
+  : public traits_op_default
+  {
+  public:
+  
+  template<typename T1> inline static void apply(Mat<typename T1::elem_type>& out, const Op<T1,op_pinv_default>& in);
+  
+  template<typename T1> inline static bool apply_direct(Mat<typename T1::elem_type>& out, const Base<typename T1::elem_type,T1>& expr);
+  };
+
+
+
 class op_pinv
   : public traits_op_default
   {
@@ -30,6 +42,12 @@ class op_pinv
   template<typename T1> inline static void apply(Mat<typename T1::elem_type>& out, const Op<T1,op_pinv>& in);
   
   template<typename T1> inline static bool apply_direct(Mat<typename T1::elem_type>& out, const Base<typename T1::elem_type,T1>& expr, typename T1::pod_type tol, const uword method_id);
+  
+  template<typename eT> inline static bool apply_diag(Mat<eT>& out, const Mat<eT>& A, typename get_pod_type<eT>::result tol);
+  
+  template<typename eT> inline static bool apply_sym (Mat<eT>& out, const Mat<eT>& A, typename get_pod_type<eT>::result tol, const uword method_id);
+  
+  template<typename eT> inline static bool apply_gen (Mat<eT>& out,       Mat<eT>& A, typename get_pod_type<eT>::result tol, const uword method_id);
   };
 
 

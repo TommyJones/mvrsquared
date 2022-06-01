@@ -72,12 +72,11 @@ Mat<eT>::Mat(const uword in_n_rows, const uword in_n_cols)
   
   init_cold();
   
-  #if (!defined(ARMA_DONT_ZERO_INIT))
+  if(arma_config::zero_init)
     {
     arma_extra_debug_print("Mat::constructor: zeroing memory");
     arrayops::fill_zeros(memptr(), n_elem);
     }
-  #endif
   }
 
 
@@ -97,12 +96,11 @@ Mat<eT>::Mat(const SizeMat& s)
   
   init_cold();
   
-  #if (!defined(ARMA_DONT_ZERO_INIT))
+  if(arma_config::zero_init)
     {
     arma_extra_debug_print("Mat::constructor: zeroing memory");
     arrayops::fill_zeros(memptr(), n_elem);
     }
-  #endif
   }
 
 
@@ -6090,6 +6088,34 @@ Mat<eT>::at(const uword in_row, const uword in_col) const
 
 
 
+#if defined(__cpp_multidimensional_subscript)
+  
+  //! element accessor; no bounds check
+  template<typename eT>
+  arma_inline
+  arma_warn_unused
+  eT&
+  Mat<eT>::operator[] (const uword in_row, const uword in_col)
+    {
+    return access::rw( mem[in_row + in_col*n_rows] );
+    }
+  
+  
+  
+  //! element accessor; no bounds check
+  template<typename eT>
+  arma_inline
+  arma_warn_unused
+  const eT&
+  Mat<eT>::operator[] (const uword in_row, const uword in_col) const
+    {
+    return mem[in_row + in_col*n_rows];
+    }
+  
+#endif
+
+
+
 //! prefix ++
 template<typename eT>
 arma_inline
@@ -6205,7 +6231,7 @@ arma_warn_unused
 bool
 Mat<eT>::is_finite() const
   {
-  return arrayops::is_finite( memptr(), n_elem );
+  return arrayops::is_finite(memptr(), n_elem);
   }
 
 
@@ -6232,6 +6258,19 @@ Mat<eT>::has_nan() const
   arma_extra_debug_sigprint();
   
   return arrayops::has_nan(memptr(), n_elem);
+  }
+
+
+
+template<typename eT>
+inline
+arma_warn_unused
+bool
+Mat<eT>::has_nonfinite() const
+  {
+  arma_extra_debug_sigprint();
+  
+  return (arrayops::is_finite(memptr(), n_elem) == false);
   }
 
 
@@ -6583,7 +6622,7 @@ Mat<eT>::memptr() const
 template<typename eT>
 inline
 void
-Mat<eT>::set_size(const uword in_elem)
+Mat<eT>::set_size(const uword new_n_elem)
   {
   arma_extra_debug_sigprint();
   
@@ -6592,11 +6631,11 @@ Mat<eT>::set_size(const uword in_elem)
     case 0:
       // fallthrough
     case 1:
-      init_warm(in_elem, 1);
+      init_warm(new_n_elem, 1);
       break;
     
     case 2:
-      init_warm(1, in_elem);
+      init_warm(1, new_n_elem);
       break;
       
     default:
@@ -6610,11 +6649,11 @@ Mat<eT>::set_size(const uword in_elem)
 template<typename eT>
 inline
 void
-Mat<eT>::set_size(const uword in_rows, const uword in_cols)
+Mat<eT>::set_size(const uword new_n_rows, const uword new_n_cols)
   {
   arma_extra_debug_sigprint();
   
-  init_warm(in_rows, in_cols);
+  init_warm(new_n_rows, new_n_cols);
   }
 
 
@@ -6635,7 +6674,7 @@ Mat<eT>::set_size(const SizeMat& s)
 template<typename eT>
 inline
 void
-Mat<eT>::resize(const uword in_elem)
+Mat<eT>::resize(const uword new_n_elem)
   {
   arma_extra_debug_sigprint();
   
@@ -6644,11 +6683,11 @@ Mat<eT>::resize(const uword in_elem)
     case 0:
       // fallthrough
     case 1:
-      (*this).resize(in_elem, 1);
+      (*this).resize(new_n_elem, 1);
       break;
     
     case 2:
-      (*this).resize(1, in_elem);
+      (*this).resize(1, new_n_elem);
       break;
       
     default:
@@ -6662,11 +6701,11 @@ Mat<eT>::resize(const uword in_elem)
 template<typename eT>
 inline
 void
-Mat<eT>::resize(const uword in_rows, const uword in_cols)
+Mat<eT>::resize(const uword new_n_rows, const uword new_n_cols)
   {
   arma_extra_debug_sigprint();
   
-  *this = arma::resize(*this, in_rows, in_cols);
+  op_resize::apply_mat_inplace((*this), new_n_rows, new_n_cols);
   }
 
 
@@ -6678,7 +6717,7 @@ Mat<eT>::resize(const SizeMat& s)
   {
   arma_extra_debug_sigprint();
   
-  *this = arma::resize(*this, s.n_rows, s.n_cols);
+  op_resize::apply_mat_inplace((*this), s.n_rows, s.n_cols);
   }
 
 
@@ -6687,11 +6726,11 @@ Mat<eT>::resize(const SizeMat& s)
 template<typename eT>
 inline
 void
-Mat<eT>::reshape(const uword in_rows, const uword in_cols)
+Mat<eT>::reshape(const uword new_n_rows, const uword new_n_cols)
   {
   arma_extra_debug_sigprint();
   
-  *this = arma::reshape(*this, in_rows, in_cols);
+  op_reshape::apply_mat_inplace((*this), new_n_rows, new_n_cols);
   }
 
 
@@ -6703,7 +6742,7 @@ Mat<eT>::reshape(const SizeMat& s)
   {
   arma_extra_debug_sigprint();
   
-  *this = arma::reshape(*this, s.n_rows, s.n_cols);
+  op_reshape::apply_mat_inplace((*this), s.n_rows, s.n_cols);
   }
 
 
@@ -6713,7 +6752,7 @@ template<typename eT>
 arma_deprecated
 inline
 void
-Mat<eT>::reshape(const uword in_rows, const uword in_cols, const uword dim)
+Mat<eT>::reshape(const uword new_n_rows, const uword new_n_cols, const uword dim)
   {
   arma_extra_debug_sigprint();
   
@@ -6721,15 +6760,7 @@ Mat<eT>::reshape(const uword in_rows, const uword in_cols, const uword dim)
   
   arma_debug_check( (dim > 1), "reshape(): parameter 'dim' must be 0 or 1" );
   
-  if(dim == 0)
-    {
-    *this = arma::reshape(*this, in_rows, in_cols);
-    }
-  else
-  if(dim == 1)
-    {
-    *this = arma::reshape(strans(*this), in_rows, in_cols);
-    }
+  op_reshape_old::apply_mat_inplace((*this), new_n_rows, new_n_cols, dim);
   }
 
 
@@ -6989,11 +7020,11 @@ Mat<eT>::zeros()
 template<typename eT>
 inline
 const Mat<eT>&
-Mat<eT>::zeros(const uword in_elem)
+Mat<eT>::zeros(const uword new_n_elem)
   {
   arma_extra_debug_sigprint();
   
-  set_size(in_elem);
+  set_size(new_n_elem);
   
   return (*this).zeros();
   }
@@ -7003,11 +7034,11 @@ Mat<eT>::zeros(const uword in_elem)
 template<typename eT>
 inline
 const Mat<eT>&
-Mat<eT>::zeros(const uword in_n_rows, const uword in_n_cols)
+Mat<eT>::zeros(const uword new_n_rows, const uword new_n_cols)
   {
   arma_extra_debug_sigprint();
   
-  set_size(in_n_rows, in_n_cols);
+  set_size(new_n_rows, new_n_cols);
   
   return (*this).zeros();
   }
@@ -7041,11 +7072,11 @@ Mat<eT>::ones()
 template<typename eT>
 inline
 const Mat<eT>&
-Mat<eT>::ones(const uword in_elem)
+Mat<eT>::ones(const uword new_n_elem)
   {
   arma_extra_debug_sigprint();
   
-  set_size(in_elem);
+  set_size(new_n_elem);
   
   return fill(eT(1));
   }
@@ -7055,11 +7086,11 @@ Mat<eT>::ones(const uword in_elem)
 template<typename eT>
 inline
 const Mat<eT>&
-Mat<eT>::ones(const uword in_rows, const uword in_cols)
+Mat<eT>::ones(const uword new_n_rows, const uword new_n_cols)
   {
   arma_extra_debug_sigprint();
   
-  set_size(in_rows, in_cols);
+  set_size(new_n_rows, new_n_cols);
   
   return fill(eT(1));
   }
@@ -7095,11 +7126,11 @@ Mat<eT>::randu()
 template<typename eT>
 inline
 const Mat<eT>&
-Mat<eT>::randu(const uword in_elem)
+Mat<eT>::randu(const uword new_n_elem)
   {
   arma_extra_debug_sigprint();
   
-  set_size(in_elem);
+  set_size(new_n_elem);
   
   return (*this).randu();
   }
@@ -7109,11 +7140,11 @@ Mat<eT>::randu(const uword in_elem)
 template<typename eT>
 inline
 const Mat<eT>&
-Mat<eT>::randu(const uword in_rows, const uword in_cols)
+Mat<eT>::randu(const uword new_n_rows, const uword new_n_cols)
   {
   arma_extra_debug_sigprint();
   
-  set_size(in_rows, in_cols);
+  set_size(new_n_rows, new_n_cols);
   
   return (*this).randu();
   }
@@ -7149,11 +7180,11 @@ Mat<eT>::randn()
 template<typename eT>
 inline
 const Mat<eT>&
-Mat<eT>::randn(const uword in_elem)
+Mat<eT>::randn(const uword new_n_elem)
   {
   arma_extra_debug_sigprint();
   
-  set_size(in_elem);
+  set_size(new_n_elem);
   
   return (*this).randn();
   }
@@ -7163,11 +7194,11 @@ Mat<eT>::randn(const uword in_elem)
 template<typename eT>
 inline
 const Mat<eT>&
-Mat<eT>::randn(const uword in_rows, const uword in_cols)
+Mat<eT>::randn(const uword new_n_rows, const uword new_n_cols)
   {
   arma_extra_debug_sigprint();
   
-  set_size(in_rows, in_cols);
+  set_size(new_n_rows, new_n_cols);
   
   return (*this).randn();
   }
@@ -7207,11 +7238,11 @@ Mat<eT>::eye()
 template<typename eT>
 inline
 const Mat<eT>&
-Mat<eT>::eye(const uword in_rows, const uword in_cols)
+Mat<eT>::eye(const uword new_n_rows, const uword new_n_cols)
   {
   arma_extra_debug_sigprint();
   
-  set_size(in_rows, in_cols);
+  set_size(new_n_rows, new_n_cols);
   
   return (*this).eye();
   }
@@ -9150,7 +9181,7 @@ Mat<eT>::fixed<fixed_n_rows, fixed_n_cols>::fixed()
   {
   arma_extra_debug_sigprint_this(this);
   
-  #if (!defined(ARMA_DONT_ZERO_INIT))
+  if(arma_config::zero_init)
     {
     arma_extra_debug_print("Mat::fixed::constructor: zeroing memory");
     
@@ -9158,7 +9189,6 @@ Mat<eT>::fixed<fixed_n_rows, fixed_n_cols>::fixed()
     
     arrayops::inplace_set_fixed<eT,fixed_n_elem>( mem_use, eT(0) );
     }
-  #endif
   }
 
 
@@ -9571,6 +9601,38 @@ Mat<eT>::fixed<fixed_n_rows, fixed_n_cols>::operator() (const uword ii) const
   
   return (use_extra) ? mem_local_extra[ii] : mem_local[ii];
   }
+
+
+
+#if defined(__cpp_multidimensional_subscript)
+  
+  template<typename eT>
+  template<uword fixed_n_rows, uword fixed_n_cols>
+  arma_inline
+  arma_warn_unused
+  eT&
+  Mat<eT>::fixed<fixed_n_rows, fixed_n_cols>::operator[] (const uword in_row, const uword in_col)
+    {
+    const uword iq = in_row + in_col*fixed_n_rows;
+    
+    return (use_extra) ? mem_local_extra[iq] : mem_local[iq];
+    }
+  
+  
+  
+  template<typename eT>
+  template<uword fixed_n_rows, uword fixed_n_cols>
+  arma_inline
+  arma_warn_unused
+  const eT&
+  Mat<eT>::fixed<fixed_n_rows, fixed_n_cols>::operator[] (const uword in_row, const uword in_col) const
+    {
+    const uword iq = in_row + in_col*fixed_n_rows;
+    
+    return (use_extra) ? mem_local_extra[iq] : mem_local[iq];
+    }
+  
+#endif
 
 
 
@@ -10008,7 +10070,7 @@ Mat_aux::set_imag(Mat< std::complex<T> >& out, const Base<T,T1>& X)
 
 
 
-#ifdef ARMA_EXTRA_MAT_MEAT
+#if defined(ARMA_EXTRA_MAT_MEAT)
   #include ARMA_INCFILE_WRAP(ARMA_EXTRA_MAT_MEAT)
 #endif
 

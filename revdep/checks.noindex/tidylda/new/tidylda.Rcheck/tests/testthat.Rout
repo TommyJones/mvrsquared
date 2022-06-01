@@ -22,8 +22,10 @@ package 'testthat' was built under R version 4.1.2
 tidylda is under active development. The API and behavior may change.
 > 
 > test_check("tidylda")
-[ FAIL 0 | WARN 0 | SKIP 0 | PASS 189 ]
+[ FAIL 0 | WARN 1 | SKIP 0 | PASS 189 ]
+
+[ FAIL 0 | WARN 1 | SKIP 0 | PASS 189 ]
 > 
 > proc.time()
    user  system elapsed 
-  5.123   0.314   5.456 
+  5.707   0.283   6.058 
