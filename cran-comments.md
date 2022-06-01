@@ -2,7 +2,7 @@
 
 This is a patch release. 
 
-This patch fixes a parallel loop issue that could've caused incorrect computations.
+This patch fixes an error on r-devel-linux-x86_64-debian-clang in CRAN checks.
 
 ## Test environments
 
