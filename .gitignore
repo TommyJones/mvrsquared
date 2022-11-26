@@ -8,3 +8,5 @@ src/*.dll
 doc
 Meta
 revdep
+/doc/
+/Meta/
