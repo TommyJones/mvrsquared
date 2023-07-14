@@ -2,13 +2,13 @@
 
 This is a patch release. 
 
-This patch fixes an error on r-devel-linux-x86_64-debian-clang in CRAN checks.
+This patch updates C++11 requirement consistent with current CRAN compilers.
 
 ## Test environments
 
 * local macOS install: release
 * macOS (on GitHub actions): release
-* ubuntu 20.04 (on GitHub actions): release, devel, and oldrel
+* ubuntu 22.04.2 (on GitHub actions): release, devel, and oldrel
 * win-builder: release, devel, and oldrel
 
 ## R CMD check results
