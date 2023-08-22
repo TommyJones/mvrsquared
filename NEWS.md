@@ -1,3 +1,7 @@
+# mvrsquared v0.1.6
+This patch addresses the issue with package documentation highlighted by CRAN and
+described [here](https://github.com/r-lib/roxygen2/issues/1491)
+
 # mvrsquared v0.1.5
 This patch updates C++11 requirement consistent with current CRAN compilers.
 

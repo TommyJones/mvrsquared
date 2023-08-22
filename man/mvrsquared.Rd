@@ -3,6 +3,7 @@
 \docType{package}
 \name{mvrsquared}
 \alias{mvrsquared}
+\alias{mvrsquared-package}
 \title{mvrsquared}
 \description{
 Compute the Coefficient of Determination for Vector or Matrix Outcomes

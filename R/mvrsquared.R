@@ -21,6 +21,7 @@
 #' frequently in topic modeling or simultaneous equation modeling.
 #'
 #' @name mvrsquared
+#' @aliases mvrsquared-package
 #' @docType package
 NULL
 
