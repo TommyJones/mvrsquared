@@ -20,10 +20,8 @@
 #' In that case, your outcome and prediction are matrices. This situation occurs
 #' frequently in topic modeling or simultaneous equation modeling.
 #'
-#' @name mvrsquared
-#' @aliases mvrsquared-package
-#' @docType package
-NULL
+#' @keywords internal
+"_PACKAGE"
 
 #' @import Matrix
 #' @import Rcpp
