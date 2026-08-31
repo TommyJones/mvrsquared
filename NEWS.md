@@ -2,6 +2,10 @@
 This patch addresses the issue with package documentation highlighted by CRAN and
 described [here](https://github.com/r-lib/roxygen2/issues/1491)
 
+It also cites the arXiv paper in the DESCRIPTION by its DOI,
+`<doi:10.48550/arXiv.1911.11061>`, rather than as `<arXiv:1911.11061>`, which
+CRAN's checks had been flagging with a NOTE.
+
 This patch also makes `calc_rsquared()` substantially faster, with no change to
 its arguments or return value.
 

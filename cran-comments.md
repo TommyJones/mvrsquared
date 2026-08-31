@@ -2,9 +2,12 @@
 
 This is a patch release.
 
-It addresses the package documentation issue highlighted by CRAN, and makes
-`calc_rsquared()` substantially faster without changing its arguments, its
-return value, or its results beyond floating point tolerance.
+It addresses both issues CRAN's checks flagged for the previous release: the
+package documentation issue, and the arXiv citation in DESCRIPTION, which now
+uses the arXiv DOI <doi:10.48550/arXiv.1911.11061> rather than <arXiv:1911.11061>.
+
+It also makes `calc_rsquared()` substantially faster without changing its
+arguments, its return value, or its results beyond floating point tolerance.
 
 Two changes account for the speedup. Sparse `y` was being read cell by cell,
 paying a search per read across the whole matrix rather than visiting only its
